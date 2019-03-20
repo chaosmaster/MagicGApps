@@ -402,6 +402,7 @@ vendorApp="$(ls -d /vendor/bundled-app/* 2>/dev/null)"
 
 # prepare NewSystemPath & NewVendorPath
 cp -af /system/build.prop $INSTALLER/build.prop
+cp -af /system/etc/g.prop $INSTALLER/g.prop
 umount -l /system_root 2>/dev/null
 umount -l /system 2>/dev/null
 mount_check /system
@@ -409,6 +410,8 @@ NewSystemPath=$modPath/system
 NewVendorPath=$NewSystemPath/vendor
 mkdir $NewSystemPath
 bind_mount $NewSystemPath /system
+mkdir $NewSystemPath/etc
+cp -af $INSTALLER/g.prop $NewSystemPath/etc/g.prop
 if [ -d /vendor ]; then
   umount -l /vendor 2>/dev/null
   mount_check /vendor
